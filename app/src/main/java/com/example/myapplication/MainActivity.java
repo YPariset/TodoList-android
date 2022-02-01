@@ -11,7 +11,6 @@ import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TabLayout tabLayout;
     private ViewPager viewPager;
     private static Context context;
 
@@ -20,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         MainActivity.context = getApplicationContext();
         setContentView(R.layout.activity_main);
-        tabLayout = findViewById(R.id.tabbedLayout);
+        TabLayout tabLayout = findViewById(R.id.tabbedLayout);
         viewPager = findViewById(R.id.viewPager);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 

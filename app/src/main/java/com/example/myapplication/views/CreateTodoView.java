@@ -2,6 +2,7 @@ package com.example.myapplication.views;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -22,15 +23,13 @@ import java.util.Date;
 
 public class CreateTodoView extends Fragment {
     private DatePicker datePicker;
-    private EditText editTextTitle;
-    private EditText editTextDescription;
-    private Button btnSubmit;
-    private Button btnReset;
-    private TodoList viewModel;
+    private EditText editTitle;
+    private EditText editDescription;
+    private final TodoList todoList;
 
     public CreateTodoView() {
         // Required empty public constructor
-        viewModel = new TodoList();
+        todoList = new TodoList();
     }
 
     @Override
@@ -41,19 +40,19 @@ public class CreateTodoView extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         this.datePicker = (DatePicker) getView().findViewById(R.id.datePicker);
-        this.editTextTitle = (EditText) getView().findViewById(R.id.editTextTitle);
-        this.editTextDescription = (EditText) getView().findViewById(R.id.editTextDescription);
-        this.btnSubmit = (Button) getView().findViewById(R.id.btnAdd);
+        this.editTitle = (EditText) getView().findViewById(R.id.editTextTitle);
+        this.editDescription = (EditText) getView().findViewById(R.id.editTextDescription);
+        Button btnSubmit = (Button) getView().findViewById(R.id.btnAdd);
 
-        this.btnSubmit.setOnClickListener(new View.OnClickListener() {
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
             private CreateTodoView createTodoView;
 
             @Override
             public void onClick(View view) {
                 createTodoView.createTask();
-                Toast.makeText(getContext(), "Todo '" + editTextTitle.getText().toString() + "' added to list !", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Todo '" + editTitle.getText().toString() + "' added to list !", Toast.LENGTH_LONG).show();
             }
 
             public View.OnClickListener init(CreateTodoView createTodoView) {
@@ -68,11 +67,13 @@ public class CreateTodoView extends Fragment {
 
     public void createTask() {
         Date date = CalendarDatePicker().getTime();
-        String title = this.editTextTitle.getText().toString();
-        String description = this.editTextDescription.getText().toString();
+        String title = this.editTitle.getText().toString();
+        String description = this.editDescription.getText().toString();
 
 
-        this.viewModel.addTodo(new Todo(title, description, date));
+        this.todoList.addTodo(new Todo(title, description, date));
+        editTitle.setText("");
+        editDescription.setText("");
     }
 
     private Calendar CalendarDatePicker() {

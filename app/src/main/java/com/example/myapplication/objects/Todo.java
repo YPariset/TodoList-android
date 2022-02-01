@@ -6,9 +6,9 @@ import java.util.Objects;
 
 public class Todo implements Serializable {
 
-    private String title;
-    private String description;
-    private Date date;
+    private final String title;
+    private final String description;
+    private final Date date;
     private boolean isDone = false;
 
     public Todo(String title, String description, Date date) {

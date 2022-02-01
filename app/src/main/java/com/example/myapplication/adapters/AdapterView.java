@@ -1,5 +1,6 @@
 package com.example.myapplication.adapters;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +8,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
@@ -22,7 +24,6 @@ public class AdapterView extends RecyclerView.Adapter<AdapterView.ViewHolder> {
         private final TextView description;
         private final TextView date;
         private final CheckBox checkBox;
-        private final Button btnDelete;
         private Todo todo = null;
 
         public ViewHolder(View view, TodoList model) {
@@ -32,21 +33,21 @@ public class AdapterView extends RecyclerView.Adapter<AdapterView.ViewHolder> {
             description = (TextView) view.findViewById(R.id.todoDescription);
             date = (TextView) view.findViewById(R.id.todoDate);
             checkBox = (CheckBox) view.findViewById(R.id.todoCheckBox);
-            btnDelete = (Button) view.findViewById(R.id.btnDelete);
+            Button btnDelete = (Button) view.findViewById(R.id.btnDelete);
 
             checkBox.setOnClickListener(new View.OnClickListener() {
-                private TodoList model;
+                private TodoList todoList;
 
                 @Override
                 public void onClick(View view) {
                     boolean checked = ((CheckBox) view).isChecked();
 
                     if (todo != null)
-                        this.model.setTodoDone(todo, checked);
+                        this.todoList.setTodoDone(todo, checked);
                 }
 
                 public View.OnClickListener init(TodoList model) {
-                    this.model = model;
+                    this.todoList = model;
 
                     return this;
                 }
@@ -96,6 +97,7 @@ public class AdapterView extends RecyclerView.Adapter<AdapterView.ViewHolder> {
         return todoList.size();
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
@@ -111,7 +113,7 @@ public class AdapterView extends RecyclerView.Adapter<AdapterView.ViewHolder> {
         viewHolder.getTitleTextView().setText(todoList.get(position).getTitle());
         viewHolder.getDescriptionTextView().setText(todoList.get(position).getDescription());
 
-        SimpleDateFormat formater =  new SimpleDateFormat("EEE, MMM d, ''yy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formater =  new SimpleDateFormat("EEE, MMM d, ''yy");
         String dateformater = formater.format(todoList.get(position).getDate().getTime());
 
         viewHolder.getDateTextView().setText(dateformater);

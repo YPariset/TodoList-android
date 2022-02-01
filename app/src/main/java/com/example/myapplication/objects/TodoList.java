@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TodoList {
-    private static final List<Todo> TASK_ENTITIES_LIST = new ArrayList<Todo>();
+    private static final List<Todo> TASK_LIST = new ArrayList<Todo>();
     private static AdapterView adapter;
 
     public TodoList() {
@@ -14,15 +14,15 @@ public class TodoList {
     }
 
     public void addTodo(Todo todo) {
-        TASK_ENTITIES_LIST.add(todo);
+        TASK_LIST.add(todo);
 
         if (adapter != null)
-            adapter.notifyItemInserted(TASK_ENTITIES_LIST.size()-1);
+            adapter.notifyItemInserted(TASK_LIST.size()-1);
     }
 
     public void removeTodo(Todo todo) {
-        int index = TASK_ENTITIES_LIST.indexOf(todo);
-        TASK_ENTITIES_LIST.remove(todo);
+        int index = TASK_LIST.indexOf(todo);
+        TASK_LIST.remove(todo);
 
         if (adapter != null)
             adapter.notifyItemRemoved(index);
@@ -30,14 +30,14 @@ public class TodoList {
 
     public void setTodoDone(Todo todo, boolean isDone)
     {
-        int index = TASK_ENTITIES_LIST.indexOf(todo);
+        int index = TASK_LIST.indexOf(todo);
 
         if (isDone)
         {
-            TASK_ENTITIES_LIST.get(index).setDone();
+            TASK_LIST.get(index).setDone();
         } else
         {
-            TASK_ENTITIES_LIST.get(index).setUndone();
+            TASK_LIST.get(index).setUndone();
         }
 
         if (adapter != null)
@@ -45,12 +45,12 @@ public class TodoList {
     }
 
     public List<Todo> getTodoList() {
-        return TASK_ENTITIES_LIST;
+        return TASK_LIST;
     }
 
     public TodoList setAdapter(AdapterView adapter)
     {
-        this.adapter = adapter;
+        TodoList.adapter = adapter;
 
         return this;
     }

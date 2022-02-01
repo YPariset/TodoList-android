@@ -2,6 +2,7 @@ package com.example.myapplication.adapters;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -22,11 +23,10 @@ public class TabsLayout extends FragmentPagerAdapter {
 
     }
 
+    @NonNull
     @Override
     public Fragment getItem(int tab) {
         switch (tab) {
-            case 0:
-                return new TodoListView();
             case 1:
                 return new CreateTodoView();
             case 2:
